@@ -13,6 +13,10 @@
 | kana_first_name     | string | null: false               | 名(カナ) |
 | birthday            | date   | null: false               | 生年月日 |
 
+### Association
+- has_many :items
+- has_many :purchase_records
+
 ## items テーブル
 
 | Column                  | Type    | Options                   | Memo |
@@ -27,6 +31,10 @@
 | shipping_days_id        | integer | null: false               | 発送までの日数(アクティブハッシュ) |
 | price                   | integer | null: false               | 価格 |
 
+### Association
+- belongs_to :user
+- has_one :purchase_record
+
 ## purchase_records テーブル
 
 | Column         | Type       | Options                        | Memo |
@@ -39,6 +47,11 @@
 | expiration_date| integer    | null: false                    | 有効期限 |
 | security_code  | integer    | null: false                    | セキュリティコード |
 
+### Association
+- belongs_to :user
+- belongs_to :item
+- has_one :shipping_address
+
 ## shipping_addresses テーブル
 
 | Column            | Type       | Options                        | Memo |
@@ -48,5 +61,9 @@
 | prefecture_id     | integer    | null: false                    | 都道府県(アクティブハッシュ) |
 | city              | string     | null: false                    | 市区町村 |
 | address_number    | string     | null: false                    | 番地 |
-| building_name     | string     | null: false                    | 建物名 |
+| building_name     | string     |                                | 建物名 |
 | phone_number      | string     | null: false                    | 電話番号 |
+
+
+### Association
+- belongs_to :purchase_record
