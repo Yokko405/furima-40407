@@ -27,7 +27,7 @@
 | category_id             | integer | null: false               | カテゴリー(アクティブハッシュ) |
 | condition_id            | integer | null: false               | 商品の状態(アクティブハッシュ) |
 | shipping_fee_payer_id   | integer | null: false               | 配送料の負担(アクティブハッシュ) |
-| shipping_origin_id      | integer | null: false               | 配送元の地域(アクティブハッシュ) |
+| prefecture_id           | integer | null: false               | 配送元の地域(アクティブハッシュ) |
 | shipping_days_id        | integer | null: false               | 発送までの日数(アクティブハッシュ) |
 | price                   | integer | null: false               | 価格 |
 
@@ -41,11 +41,6 @@
 |----------------|------------|--------------------------------|------|
 | user           | references | null: false, foreign_key: true | 購入者のユーザーID、usersテーブルの外部キー |
 | item           | references | null: false, foreign_key: true | 購入された商品ID、itemsテーブルの外部キー |
-| order_date     | date       | null: false                    | 注文日 |
-| payment_amount | integer    | null: false                    | 支払金額 |
-| card_number    | integer    | null: false                    | カード情報 |
-| expiration_date| integer    | null: false                    | 有効期限 |
-| security_code  | integer    | null: false                    | セキュリティコード |
 
 ### Association
 - belongs_to :user
