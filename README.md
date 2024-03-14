@@ -28,7 +28,7 @@
 | condition_id            | integer | null: false               | 商品の状態(アクティブハッシュ) |
 | shipping_fee_payer_id   | integer | null: false               | 配送料の負担(アクティブハッシュ) |
 | prefecture_id           | integer | null: false               | 配送元の地域(アクティブハッシュ) |
-| shipping_days_id        | integer | null: false               | 発送までの日数(アクティブハッシュ) |
+| shipping_day_id        | integer | null: false               | 発送までの日数(アクティブハッシュ) |
 | price                   | integer | null: false               | 価格 |
 
 ### Association
