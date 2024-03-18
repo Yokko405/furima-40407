@@ -1,4 +1,4 @@
-window.addEventListener('load', function(){
+window.addEventListener('turbo:load', function(){
   // 価格入力フィールドにイベントリスナーを設定
   const priceInput = document.getElementById('item-price');
   priceInput.addEventListener('input', () => {
