@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before do
-    @user = create(:user) # FactoryBotでUserインスタンスを生成
-    @item = build(:item, user: @user) # Itemのインスタンスを生成
+    @user = FactoryBot.create(:user) # FactoryBotでUserインスタンスを生成
+    @item = FactoryBot.build(:item, user: @user) # Itemのインスタンスを生成
   end
 
   describe '商品の保存' do
@@ -19,11 +19,19 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
+
       it '商品名がないと保存できない' do
         @item.name = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Name can't be blank")
       end
+
+      it '商品名が40文字を超えると保存できない' do
+        @item.name = "a" * 41
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Name is too long (maximum is 40 characters)")
+      end
+
 
       it '商品説明がないと保存できない' do
         @item.description = ''

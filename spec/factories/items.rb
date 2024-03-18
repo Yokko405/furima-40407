@@ -13,7 +13,7 @@ FactoryBot.define do
 
     after(:build) do |item|
       # item.image.attach(io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')), filename: 'test_image.png', content_type: 'image/png')
-      item.image.attach(io: File.open('fixtures/test_image.png'), filename: 'test_image.png')
+      item.image.attach(io: File.open('spec/fixtures/test_image.png'), filename: 'test_image.png')
   
     end
   end
