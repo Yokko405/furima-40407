@@ -1,4 +1,7 @@
 class ShippingAddress < ApplicationRecord
+  attr_accessor :token
+  validates :price, presence: true
+
   belongs_to :purchase_record
 
   extend ActiveHash::Associations::ActiveRecordExtensions

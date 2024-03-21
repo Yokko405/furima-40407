@@ -5,12 +5,13 @@ class OrdersController < ApplicationController
 
   def index
     @shipping_address = ShippingAddress.new
+    @order_form = OrderForm.new
   end
   
 
   def create
+    binding.pry
     @shipping_address = ShippingAddress.new(shipping_address_params)
-    # binding.pry
     if @shipping_address.valid?
       @shipping_address.save
       return redirect_to root_path
@@ -21,7 +22,7 @@ class OrdersController < ApplicationController
 
   private
   def shipping_address_params
-    params.require(:shipping_address).permit(:purchase_record, :postal_code, :prefecture_id, :city, :address_number, :building_name, :phone_number, :item_price)
+    params.require(:shipping_address).permit(:purchase_record, :postal_code, :prefecture_id, :city, :address_number, :building_name, :phone_number, :item_price).merge(token: params[:token])
   end
 
   def set_item
