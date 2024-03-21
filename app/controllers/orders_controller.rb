@@ -1,13 +1,14 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_item
+  before_action :redirect_if_seller
 
   def index
-    @item = Item.find(params[:item_id])
     @shipping_address = ShippingAddress.new
   end
   
 
   def create
-    @item = Item.find(params[:item_id])
     @shipping_address = ShippingAddress.new(shipping_address_params)
     # binding.pry
     if @shipping_address.valid?
@@ -21,5 +22,13 @@ class OrdersController < ApplicationController
   private
   def shipping_address_params
     params.require(:shipping_address).permit(:purchase_record, :postal_code, :prefecture_id, :city, :address_number, :building_name, :phone_number, :item_price)
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
+  def redirect_if_seller
+    redirect_to root_path if current_user == @item.user
   end
 end
