@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
   before_action :redirect_if_seller
+  before_action :check_soldout, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -43,4 +44,9 @@ class OrdersController < ApplicationController
       currency: 'jpy'
     )
   end
+
+  def check_soldout
+    redirect_to root_path if @item.purchase_record.present?
+  end
+
 end
