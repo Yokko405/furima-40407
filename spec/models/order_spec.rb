@@ -15,6 +15,14 @@ RSpec.describe OrderForm, type: :model do
       order = FactoryBot.build(:order_form, user_id: @user.id, item_id: item.id)
       expect(order).to be_valid
     end
+
+    it "building_nameが空でも保存ができること" do
+      item = FactoryBot.create(:item, user: @user) # このテストのみcreateを使用
+      order = FactoryBot.build(:order_form, user_id: @user.id, item_id: item.id)
+      order.building_name = nil
+      expect(order).to be_valid
+    end
+
   end
 
   context '内容に問題がある場合' do
