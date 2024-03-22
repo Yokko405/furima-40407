@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :order_form do
-
+    # association :user # Userモデルとの関連付け。
+    # association :item # Itemモデルとの関連付け。
 
     token {"tok_abcdefghijk00000000000000000"}
 
