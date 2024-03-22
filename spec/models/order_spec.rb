@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe OrderForm, type: :model do
   before do
     @user = FactoryBot.create(:user) # FactoryBotでUserインスタンスを生成
-    @item = FactoryBot.create(:item) # Itemのインスタンスを生成
-    @order = FactoryBot.build(:order_form, user_id: @user.id, item_id: @item.id, token: "tok_abcdefghijk00000000000000000")
+    @item = FactoryBot.create(:item, user: @user) # Itemのインスタンスを生成
+    @order = FactoryBot.build(:order_form, user_id: @user.id, item_id: @item.id)
+  
   end
 
   context '内容に問題ない場合' do
