@@ -3,22 +3,18 @@ require 'rails_helper'
 RSpec.describe OrderForm, type: :model do
   before do
     @user = FactoryBot.create(:user) # FactoryBotでUserインスタンスを生成
-    @item = FactoryBot.build(:item, user: @user) # Itemのインスタンスを生成
+    @item = FactoryBot.create(:item) # Itemのインスタンスを生成
     @order = FactoryBot.build(:order_form, user_id: @user.id, item_id: @item.id)
   end
 
   context '内容に問題ない場合' do
     it '必須データがそろっていれば保存ができること' do
-      item = FactoryBot.create(:item, user: @user) # このテストのみcreateを使用
-      order = FactoryBot.build(:order_form, user_id: @user.id, item_id: item.id)
-      expect(order).to be_valid
+      expect(@order).to be_valid
     end
 
     it 'building_nameが空でも保存ができること' do
-      item = FactoryBot.create(:item, user: @user) # このテストのみcreateを使用
-      order = FactoryBot.build(:order_form, user_id: @user.id, item_id: item.id)
-      order.building_name = nil
-      expect(order).to be_valid
+      @order.building_name = nil
+      expect(@order).to be_valid
     end
   end
 
