@@ -1,7 +1,7 @@
 class OrderForm
   include ActiveModel::Model
   attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :city, :address_number, :building_name, :phone_number, :token
-  
+
   with_options presence: true do
     validates :user_id
     validates :item_id
@@ -11,15 +11,15 @@ class OrderForm
     validates :address_number
     validates :phone_number, format: { with: /\A\d{10,11}\z/ }
     validates :token
-    
   end
 
   def save
     return false unless valid?
 
     ActiveRecord::Base.transaction do
-      purchase_record = PurchaseRecord.create!(user_id: user_id, item_id: item_id)
-      ShippingAddress.create!(purchase_record_id: purchase_record.id, postal_code: postal_code, prefecture_id: prefecture_id, city: city, address_number: address_number, building_name: building_name, phone_number: phone_number)
+      purchase_record = PurchaseRecord.create!(user_id:, item_id:)
+      ShippingAddress.create!(purchase_record_id: purchase_record.id, postal_code:, prefecture_id:,
+                              city:, address_number:, building_name:, phone_number:)
     end
     true
   rescue ActiveRecord::RecordInvalid

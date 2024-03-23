@@ -1,15 +1,11 @@
 FactoryBot.define do
   factory :order_form do
-    # association :user # Userモデルとの関連付け。
-    # association :item # Itemモデルとの関連付け。
-
-    token {"tok_abcdefghijk00000000000000000"}
-
+    token { 'tok_abcdefghijk00000000000000000' }
     postal_code { '123-4567' }
     prefecture_id { 2 }
     city { '中央区旭市' }
     address_number { '村上1-1-1' }
+    building_name { 'みらいビル201' }
     phone_number { '0801234567' }
-
   end
 end

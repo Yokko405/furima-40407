@@ -5,10 +5,9 @@ class OrdersController < ApplicationController
   before_action :check_soldout, only: [:index, :create]
 
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @order_form = OrderForm.new
   end
-  
 
   def create
     @order_form = OrderForm.new(order_form_params)
@@ -17,15 +16,17 @@ class OrdersController < ApplicationController
       @order_form.save
       redirect_to root_path
     else
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render 'index', status: :unprocessable_entity
     end
   end
 
   private
+
   def order_form_params
-    params.require(:order_form).permit(:user_id, :item_id, :postal_code, :prefecture_id, :city, :address_number, :building_name, :phone_number)
-      .merge(item_id: @item.id, user_id: current_user.id, token: params[:token])
+    params.require(:order_form)
+          .permit(:user_id, :item_id, :postal_code, :prefecture_id, :city, :address_number, :building_name, :phone_number)
+          .merge(item_id: @item.id, user_id: current_user.id, token: params[:token])
   end
 
   def set_item
@@ -37,7 +38,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: order_form_params[:token],
@@ -48,5 +49,4 @@ class OrdersController < ApplicationController
   def check_soldout
     redirect_to root_path if @item.purchase_record.present?
   end
-
 end
