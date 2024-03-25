@@ -1,4 +1,14 @@
 const pay = () => {
+// ページ上に特定の見出しやセクションが存在するかをチェック
+const h1Element = document.querySelector('h1');
+const isPurchasePage = (h1Element && h1Element.textContent.includes('購入内容の確認')) ||
+  (h1Element && h1Element.textContent.includes('クレジットカード情報入力'));
+
+// 特定のページでなければ早期リターン
+if (!isPurchasePage) {
+  return;
+}
+
   const publicKey = gon.public_key
   const payjp = Payjp(publicKey) // PAY.JPテスト公開鍵
   const elements = payjp.elements();

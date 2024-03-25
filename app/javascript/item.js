@@ -1,4 +1,13 @@
 function setupPriceCalc() {
+// ページ上に「商品の情報を入力」というテキストが含まれているかをチェック
+const isItemInputPage = document.body.textContent.includes('商品の情報を入力');
+
+// 商品情報入力ページでなければ早期リターン
+if (!isItemInputPage) {
+  return;
+}
+
+
   // 価格入力フィールドにイベントリスナーを設定
   const priceInput = document.getElementById('item-price');
   priceInput.addEventListener('input', () => {
